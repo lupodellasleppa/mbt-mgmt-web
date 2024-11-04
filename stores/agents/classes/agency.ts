@@ -1,4 +1,4 @@
-import { TourAgency as _TourAgency } from 'src/client';
+import type { TourAgency as _TourAgency } from '../../../models';
 
 export interface TourAgency extends _TourAgency {}
 

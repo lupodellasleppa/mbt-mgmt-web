@@ -1,19 +1,21 @@
 import { defineStore } from 'pinia';
-import { api } from 'src/boot/axios';
+import type {
+  ListAvailableVehiclesApiV1VehiclesAvailableGetData,
+  ListStopsApiV1VehiclesStopsByPlatePlateGetData,
+  VehicleCreate,
+  VehicleUpdate,
+} from '../../models';
 import {
   createVehicleApiV1VehiclesPost,
   deleteVehicleApiV1VehiclesPlateDelete,
   getVehicleApiV1VehiclesPlateGet,
   listAvailableVehiclesApiV1VehiclesAvailableGet,
-  ListAvailableVehiclesApiV1VehiclesAvailableGetData,
   listStopsApiV1VehiclesStopsByPlatePlateGet,
-  ListStopsApiV1VehiclesStopsByPlatePlateGetData,
   listVehiclesApiV1VehiclesGet,
   updateVehicleApiV1VehiclesPlatePatch,
-  VehicleCreate,
-  VehicleUpdate,
-} from 'src/client';
+} from '../../models';
 import { Vehicle } from '.';
+import { api } from '../../composables/useApi';
 
 export const useVehicleStore = defineStore('vehicles', {
   state: () => ({

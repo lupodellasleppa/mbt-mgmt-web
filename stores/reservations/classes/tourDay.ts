@@ -1,10 +1,10 @@
 import { first } from 'radash';
-import {
-  TourDay as TourDayType,
-  TourDayWithoutReservation as TourDayWithoutReservationType,
-} from 'src/client';
+import type {
+  TourDay as _TourDay,
+  TourDayWithoutReservation as _TourDayWithoutReservation,
+} from '../../../models';
 import { Tour, ReservationWithParticipants } from '.';
-import { useDateTimeStore } from 'src/stores/datetime';
+import { useDateTimeStore } from '../..';
 
 interface Colors {
   card: string;
@@ -14,13 +14,11 @@ interface Colors {
 }
 
 export interface TourDayWithoutReservation
-  extends TourDayWithoutReservationType {}
+  extends _TourDayWithoutReservation {}
 
-export class TourDayWithoutReservation
-  implements TourDayWithoutReservationType
-{
+export class TourDayWithoutReservation implements _TourDayWithoutReservation {
   tours: Tour[] = []; // override tours property with class instead of type
-  constructor(data: TourDayWithoutReservationType) {
+  constructor(data: _TourDayWithoutReservation) {
     const dateTimeStore = useDateTimeStore();
     const defaultTours = [] as Tour[];
     this.tour_date = data.tour_date
@@ -30,16 +28,18 @@ export class TourDayWithoutReservation
     this.tours = data.tours
       ? data.tours.map((tour) => new Tour(tour))
       : defaultTours;
-    this.previous_day_id = data.previous_day_id ? data.previous_day_id : null;
-    this.next_day_id = data.next_day_id ? data.next_day_id : null;
+    this.previous_day_id = data.previous_day_id
+      ? data.previous_day_id
+      : undefined;
+    this.next_day_id = data.next_day_id ? data.next_day_id : undefined;
   }
 }
 
-export interface TourDay extends TourDayType {}
+export interface TourDay extends _TourDay {}
 
-export class TourDay extends TourDayWithoutReservation implements TourDayType {
-  tours: Tour[] = []; // override tours property with class instead of type
-  constructor(data: TourDayType) {
+export class TourDay extends TourDayWithoutReservation implements _TourDay {
+  override tours: Tour[] = [];
+  constructor(data: _TourDay) {
     const { reservation, ...superData } = { ...data };
     super(superData);
     this.reservation = new ReservationWithParticipants(reservation);
@@ -75,6 +75,7 @@ export class TourDay extends TourDayWithoutReservation implements TourDayType {
           lightText: 'purple-4',
           header: 'purple-6',
         };
+        break;
       case this.isFromAgent:
         color = {
           card: 'light-blue-10',
@@ -82,6 +83,7 @@ export class TourDay extends TourDayWithoutReservation implements TourDayType {
           lightText: 'light-blue-4',
           header: 'blue-7',
         };
+        break;
       // case this.payment_is_cash:
       //   key = 'issue';
       //   break;

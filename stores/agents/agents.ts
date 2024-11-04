@@ -1,5 +1,10 @@
-import { defineStore } from 'pinia';
-import { api } from 'src/boot/axios';
+import type {
+  TourAgencyCreate,
+  TourAgency as _TourAgency,
+  TourAgentCreate,
+  TourAgent as _TourAgent,
+} from '../../models';
+import { TourAgency, TourAgent } from '.';
 import {
   createAgencyApiV1TourAgentsTourAgenciesPost,
   createAgentApiV1TourAgentsPost,
@@ -8,15 +13,11 @@ import {
   listAgentsApiV1TourAgentsGet,
   listTourAgenciesApiV1TourAgentsTourAgenciesGet,
   queryAgentsApiV1TourAgentsSearchPost,
-  TourAgencyCreate,
-  TourAgency as _TourAgency,
-  TourAgentCreate,
-  TourAgent as _TourAgent,
   updateAgentApiV1TourAgentsAgentUidPatch,
-  queryTourAgenciesApiV1TourAgentsTourAgenciesSearchPost,
   getByIdApiV1TourAgentsTourAgenciesByIdTourAgencyIdGet,
-} from 'src/client';
-import { TourAgency, TourAgent } from '.';
+  queryTourAgenciesApiV1TourAgentsTourAgenciesSearchPost,
+} from '../../models';
+import { api } from '../../composables/useApi';
 
 export const useTourAgenciesStore = defineStore('tour-agencies', {
   state: () => {

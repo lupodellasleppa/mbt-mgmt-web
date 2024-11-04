@@ -1,29 +1,28 @@
 import { defineStore } from 'pinia';
 import { useDateTimeStore } from '../datetime';
+import type {
+  Reservation as ReservationType,
+  Tour as _Tour,
+  TourDay as _TourDay,
+  TourDaysCountByFilterSchema,
+  ListReservationFiltersEnum,
+} from '../../models';
 import {
   getCountByFilterApiV1ReservationsCountByFilterGet,
   getMultipleTourDaysApiV1ReservationsTourDaysMultipleTourDayIdGet,
   getReservationsByDateApiV1ReservationsByDateTourDateGet,
   getTourDayApiV1ReservationsTourDaysTourDayIdGet,
-  ListReservationFiltersEnum,
   lockTourDayApiV1ReservationsTourDaysLockTourDayIdPatch,
-  Reservation as ReservationType,
-  Tour as TourType,
-  TourDay as TourDayType,
-  TourDaysCountByFilterSchema,
   updateTourDayApiV1ReservationsTourDaysTourDayIdPatch,
   createReservationApiV1ReservationsPost,
   cancelApiV1ReservationsTourDaysCancelTourDayIdPatch,
   getReservationApiV1ReservationsReservationIdGet,
-  TourDayWithoutReservation,
-  Customer,
-} from 'src/client';
-import { api } from 'src/boot/axios';
+} from '../../models';
 import { TourDay, Reservation } from '.';
 import { date } from 'quasar';
-import { ListReservationFiltersMap } from 'src/client/additionalTypes';
+import type { ListReservationFiltersMap } from '../../models/additionalTypes';
 import { isEmpty } from 'radash';
-import { computed, ref } from 'vue';
+import { api } from '../../composables/useApi';
 
 // export const useToursStore = defineStore('tours', {
 //   state: () => ({
@@ -93,7 +92,7 @@ export const useTourDaysStore = defineStore('tour-days', {
     },
   },
   actions: {
-    setDays(data: TourDayType[]) {
+    setDays(data: _TourDay[]) {
       this.tourDays = data.map((tourDay) => new TourDay(tourDay));
     },
     setDaysExpanded(value: boolean) {

@@ -1,0 +1,6 @@
+{
+  "singleQuote": true,
+  "semi": true,
+  "singleAttributePerLine": false,
+  "printWidth": 79
+}

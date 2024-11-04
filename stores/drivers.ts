@@ -1,14 +1,13 @@
 import { defineStore } from 'pinia';
 import { Notify } from 'quasar';
-import { api, main } from 'src/boot/axios';
-import {
+import type {
   DriverCreate,
   DriverStopCreate,
   DriverStopTypeEnum,
   DriverStopUpdate,
   DriverUpdate,
   Employee,
-} from 'src/client';
+} from '../models';
 
 const endpoint = '/drivers';
 

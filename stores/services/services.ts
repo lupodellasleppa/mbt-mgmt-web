@@ -1,24 +1,26 @@
 import { defineStore } from 'pinia';
-import { api } from 'src/boot/axios';
-import {
-  listServicesApiV1ServicesGet,
+import type {
   Service as _Service,
   ServiceType as _ServiceType,
+  ServiceUpdate,
+  ServiceTypeUpdate,
+  ServiceTypeCreate,
+  ServiceCreate,
+} from '../../models';
+import {
+  listServicesApiV1ServicesGet,
   getServiceByIdApiV1ServicesServiceIdGet,
   updateServiceApiV1ServicesServiceIdPatch,
-  ServiceUpdate,
   deleteServiceApiV1ServicesServiceIdDelete,
   getServiceTypeByIdApiV1ServicesTypesServiceTypeIdGet,
   listServiceTypesApiV1ServicesTypesGet,
   updateServiceTypeApiV1ServicesTypesServiceTypeIdPatch,
-  ServiceTypeUpdate,
   deleteServiceTypeApiV1ServicesTypesServiceTypeIdDelete,
-  ServiceTypeCreate,
   createServiceTypeApiV1ServicesTypesPost,
-  ServiceCreate,
   createServiceApiV1ServicesPost,
-} from 'src/client';
+} from '../../models';
 import { Service, ServiceType } from '.';
+import { api } from '../../composables/useApi';
 
 export const useServiceTypeStore = defineStore('service-type', {
   state: () => ({
@@ -63,7 +65,7 @@ export const useServiceTypeStore = defineStore('service-type', {
       return index;
     },
     async patch(service_type_id: number, body: ServiceTypeUpdate) {
-      const data = await this.$call(
+      await this.$call(
         updateServiceTypeApiV1ServicesTypesServiceTypeIdPatch({
           client: api,
           path: { service_type_id },

@@ -1,4 +1,4 @@
-import { User as _User } from 'src/client';
+import { RolesEnum, type User as _User, type Role } from '../../../models';
 export interface User extends _User {}
 
 export class User implements _User {
@@ -16,7 +16,9 @@ export class User implements _User {
     this.password = data.password;
     this.uid = data.uid;
     this.active = data.active;
-    this.role = data.role;
+    this.role = data.role
+      ? data.role
+      : ({ name: RolesEnum.BASE, permissions: {} } as Role);
     this.country = data.country;
     this.websites = data.websites;
     this.emails = data.emails;

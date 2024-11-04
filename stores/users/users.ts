@@ -1,25 +1,21 @@
 import { defineStore, getActivePinia } from 'pinia';
+import type { PermissionsEnum, RolesEnum, UserCreate } from '../../models';
 import {
   createUserAuthPost,
   getCodeAuthGetCodePost,
   getCurrentApiV1UsersCurrentGet,
   getUserApiV1UsersSubGet,
-  loginAuthLoginPost,
+  // loginAuthLoginPost,
   loginWithGoogleAuthLoginWithGooglePost,
   logoutAuthLogoutPost,
-  PermissionsEnum,
   refreshTokenAuthRefreshTokenPost,
-  RolesEnum,
-  UserCreate,
-} from 'src/client';
-import { RoleValuesEnum } from 'src/client/additionalTypes';
-import { api, main } from 'boot/axios';
-import { Notify } from 'quasar';
+} from '../../models';
+import { RoleValuesEnum } from '../../models/additionalTypes';
 import { Quasar } from 'quasar';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { intersects, isEmpty } from 'radash';
-import { isAxiosError } from 'axios';
-import { catch500, User } from '..';
+import { User } from '..';
+import { api } from '../../composables/useApi';
 
 const getRoleValue = (roleName: RolesEnum): number => {
   return RoleValuesEnum[roleName as keyof typeof RoleValuesEnum];
@@ -54,21 +50,12 @@ export const useUserStore = defineStore('users', {
       const data = await this.$call(
         loginWithGoogleAuthLoginWithGooglePost({
           client: api,
-          body: { token: this.token },
+          body: { token: loginToken },
         })
       );
       this.currentUser = new User(data.user);
       this.token = data.token;
       this.refreshToken = data.refresh_token;
-      try {
-        const data = (
-          await main.post('/auth/login-with-google', { token: loginToken })
-        ).data;
-        console.log('data', data);
-      } catch (error) {
-        Notify.create(error as string);
-        throw error;
-      }
     },
     async logout() {
       this.$call(

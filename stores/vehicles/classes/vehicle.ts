@@ -1,4 +1,4 @@
-import { Vehicle as VehicleType } from 'src/client';
+import type { Vehicle as VehicleType } from '../../../models';
 
 export interface Vehicle extends VehicleType {}
 

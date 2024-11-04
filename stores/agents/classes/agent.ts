@@ -1,5 +1,5 @@
-import { TourAgent as _TourAgent } from 'src/client';
-import { User } from 'src/stores';
+import type { TourAgent as _TourAgent } from '../../../models';
+import { User } from '../..';
 
 export interface TourAgent extends _TourAgent {}
 

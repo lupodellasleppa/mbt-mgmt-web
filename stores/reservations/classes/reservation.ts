@@ -1,16 +1,14 @@
-import {
+import type {
   ReservationWithParticipants as _ReservationWithParticipants,
   Reservation as _Reservation,
-  TourDayWithoutReservation as TourDayWithoutReservationType,
-  CurrencyEnum,
+  TourDayWithoutReservation as _TourDayWithoutReservation,
   TourAgency,
-} from 'src/client';
+} from '../../../models';
+import { CurrencyEnum } from '../../../models';
 import { TourDayWithoutReservation } from './tourDay';
 import { first, last } from 'radash';
 import { date } from 'quasar';
-import { useDateTimeStore } from 'src/stores/datetime';
-import { TourAgent } from 'src/stores/agents';
-import { Customer } from 'src/stores';
+import { Customer, TourAgent, useDateTimeStore } from '../..';
 
 export interface ReservationWithParticipants
   extends _ReservationWithParticipants {}
@@ -43,7 +41,7 @@ export class ReservationWithParticipants
       ? data.price_currency
       : CurrencyEnum.EUR;
     this.payment_info = data.payment_info;
-    this.note = data.note ? data.note : null;
+    this.note = data.note ? data.note : undefined;
     this.paid = data.paid ? data.paid : false;
     this.locked = data.locked ? data.locked : false;
     this.canceled = data.canceled ? data.canceled : false;
@@ -66,13 +64,13 @@ export class Reservation
     super(superData);
     this.tour_days = tour_days
       ? tour_days
-      : [new TourDayWithoutReservation({} as TourDayWithoutReservationType)];
+      : [new TourDayWithoutReservation({} as _TourDayWithoutReservation)];
   }
 
   addDay() {
     const dateTimeStore = useDateTimeStore();
     const newDay = new TourDayWithoutReservation(
-      {} as TourDayWithoutReservationType
+      {} as _TourDayWithoutReservation
     );
     const lastDay = last(this.tour_days)?.tour_date;
     const extractedLastDay = date.extractDate(

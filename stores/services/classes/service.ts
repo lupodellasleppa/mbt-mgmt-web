@@ -1,7 +1,8 @@
-import {
+import type {
   Service as _Service,
   ServiceWithoutServiceType as _ServiceWithoutServiceType,
-} from 'src/client';
+  ServiceTypeWithoutServices as _ServiceTypeWithoutServices,
+} from '../../../models';
 import { ServiceTypeWithoutServices } from '.';
 
 export interface ServiceWithoutServiceType
@@ -32,6 +33,6 @@ export class Service extends ServiceWithoutServiceType implements _Service {
     super(superData);
     this.service_type = service_type
       ? new ServiceTypeWithoutServices(service_type)
-      : new ServiceTypeWithoutServices({} as ServiceTypeWithoutServices);
+      : new ServiceTypeWithoutServices({} as _ServiceTypeWithoutServices);
   }
 }

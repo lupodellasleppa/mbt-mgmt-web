@@ -1,13 +1,19 @@
 import { defineStore } from 'pinia';
-import { api } from 'src/boot/axios';
-import { Battery } from 'src/client';
 import { ref } from 'vue';
 import { endpoint } from '.';
 import { isAxiosError } from 'axios';
 import { catch500 } from '..';
+import type { Battery } from '../../models';
 
-export const useBatteriesStore = defineStore('batteries', () => {
-  const batteries = ref<Battery[]>([] as Battery[]);
+export const useBatteriesStore = defineStore('batteries',  {
+  state : () => ({
+    batteris: ref([] as Battery[])
+  })
+  actions: {
+    async list() {
+      const data = this.$call(batteries)
+    }
+  }
 
   const list = async () => {
     try {
@@ -30,4 +36,4 @@ export const useBatteriesStore = defineStore('batteries', () => {
       batteries.value = [];
     },
   };
-});
+};

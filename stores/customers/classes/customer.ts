@@ -1,5 +1,5 @@
-import { Customer as _Customer } from 'src/client';
-import { User } from 'src/stores';
+import type { Customer as _Customer } from '../../../models';
+import { User } from '../..';
 
 export interface Customer extends _Customer {}
 

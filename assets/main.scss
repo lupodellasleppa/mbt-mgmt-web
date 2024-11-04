@@ -1,0 +1,106 @@
+// app global css in SCSS form
+.text-secondary-light {
+  color: #81bae9 !important;
+}
+.bg-secondary-light {
+  background-color: #81bae9 !important;
+}
+.text-secondary-darker {
+  color: #2a385f !important;
+}
+.bg-secondary-darker {
+  background-color: #2a385f !important;
+}
+
+.text-primary-light {
+  color: #fff59d !important;
+}
+.bg-primary-light {
+  background-color: #fff59d !important;
+}
+
+.text-primary-complementary {
+  color: #827717 !important;
+}
+
+.bg-primary-complementary {
+  background-color: #827717 !important;
+}
+
+.text-primary-complementary-light {
+  color: #938d44 !important;
+}
+
+.bg-primary-complementary-light {
+  background-color: #938d44 !important;
+}
+
+.text-primary-darker {
+  color: #df720c !important;
+}
+
+.bg-primary-darker {
+  background-color: #df720c !important;
+}
+
+.very-rounded-borders {
+  border-radius: 22px !important;
+}
+
+body {
+  background-position: center;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-image: url('src/assets/brick-red.png');
+  background-attachment: fixed;
+  background-color: rgba(230, 230, 230, 0.8);
+  background-blend-mode: lighten;
+}
+
+a {
+  color: #ff9100;
+}
+
+.normal-flag {
+  margin: -0.6em -0.9em -0.6em -0.7em !important;
+}
+
+.item-handle {
+  cursor: grab;
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// Quasar SCSS (& Sass) Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
+
+// Check documentation for full list of Quasar variables
+
+// Your own variables (that are declared here) and Quasar's own
+// ones will be available out of the box in your .vue/.scss/.sass files
+
+// It's highly recommended to change the default colors
+// to match your app's branding.
+// Tip: Use the "Theme Builder" on Quasar's documentation website.
+
+$primary: #ffd54f;
+$primary-light: #fff59d;
+$primary-complementary: #827717;
+$primary-complementary-light: #9e9d24;
+$primary-darker: #df720c;
+$secondary: #42a5f5;
+$secondary-darker: #22457a;
+$accent: #55ffee;
+
+$dark: #1d1d1d;
+$dark-page: #121212;
+
+$positive: #21ba45;
+$negative: #da4052;
+$info: #94edff;
+$warning: #af5b00;

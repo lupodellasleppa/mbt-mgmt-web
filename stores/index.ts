@@ -1,7 +1,9 @@
-import { createPinia } from "pinia";
-import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
-import { type Store } from "pinia";
-import { ref, type Ref } from "vue";
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+import type { Store } from 'pinia';
+import { ref, type Ref } from 'vue';
+import { isAxiosError, type AxiosError } from 'axios';
+import { Notify } from 'quasar';
 
 type ApiCall = <T>(
   call: Promise<{ data: T; error: any }>
@@ -11,9 +13,8 @@ type ApiCall = <T>(
  * extend the `PiniaCustomProperties` interface.
  * @see https://pinia.vuejs.org/core-concepts/plugins.html#typing-new-store-properties
  */
-declare module "pinia" {
+declare module 'pinia' {
   export interface PiniaCustomProperties {
-    readonly router: Router;
     set loading(value: boolean | Ref<boolean>);
     get loading(): boolean;
     $call: ApiCall;
@@ -34,37 +35,33 @@ export type PiniaStore<T extends (...args: any) => any> = Omit<
  * with the Store instance.
  */
 
-export default store((/* { ssrContext } */) => {
-  const pinia = createPinia();
+const pinia = createPinia();
 
-  // You can add Pinia plugins here
-  pinia.use(piniaPluginPersistedstate);
-  pinia.use(() => ({ loading: ref(false) }));
-  pinia.use(({ store }) => ({
-    $call: async <T>(call: Promise<{ data: T; error: any }>) =>
-      await callEndpoint(call, store),
-  }));
-
-  return pinia;
-});
+// You can add Pinia plugins here
+pinia.use(piniaPluginPersistedstate);
+pinia.use(() => ({ loading: ref(false) }));
+pinia.use(({ store }) => ({
+  $call: async <T>(call: Promise<{ data: T; error: any }>) =>
+    await callEndpoint(call, store),
+}));
 
 export const catch400 = (error: AxiosError) => {
   if (error.status == 400) {
     Notify.create({
       message: error.message,
-      position: "bottom",
-      color: "negative",
+      position: 'bottom',
+      color: 'negative',
       timeout: 2500,
     });
     throw error;
   }
 };
 export const catch500 = (error: AxiosError) => {
-  if (error.code == "ERR_NETWORK") {
+  if (error.code == 'ERR_NETWORK') {
     Notify.create({
       message: error.message,
-      position: "bottom",
-      color: "negative",
+      position: 'bottom',
+      color: 'negative',
       timeout: 2500,
     });
     throw error;
@@ -88,9 +85,10 @@ export const callEndpoint = async <T>(
   return data;
 };
 
-export * from "./users";
-export * from "./agents";
-export * from "./customers";
-export * from "./reservations";
-export * from "./services";
-export * from "./vehicles";
+export * from './users';
+export * from './agents';
+export * from './customers';
+export * from './reservations';
+export * from './services';
+export * from './vehicles';
+export * from './datetime';

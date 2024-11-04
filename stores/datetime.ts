@@ -2,10 +2,7 @@ import { defineStore } from 'pinia';
 import { date } from 'quasar';
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import {
-  useReservationsStore,
-  useTourDaysStore,
-} from './reservations/reservations';
+import { useTourDaysStore } from './reservations/reservations';
 
 export const useDateTimeStore = defineStore(
   'datetime',
@@ -14,7 +11,6 @@ export const useDateTimeStore = defineStore(
     const $router = useRouter();
     const viewDayState = ref<Date>(new Date());
     const tourDaysStore = useTourDaysStore();
-    const reservationsStore = useReservationsStore();
 
     interface ViewDayFormats {
       iso: string;

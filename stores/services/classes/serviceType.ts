@@ -1,8 +1,8 @@
-import {
+import type {
   ServiceType as _ServiceType,
   ServiceTypeWithoutServices as _ServiceTypeWithoutServices,
   ServiceWithoutServiceType as _ServiceWithoutServiceType,
-} from 'src/client';
+} from '../../../models';
 import { ServiceWithoutServiceType } from '.';
 
 export interface ServiceTypeWithoutServices
